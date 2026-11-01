@@ -13,6 +13,8 @@ The practical work was completed on my existing Google Cloud Ubuntu VM.
 - Python: 3.10.12
 - pyOpenSSL: 21.0.0
 
+Evidence: [System information](screenshots/B1a-system.jpg) · [Software versions and disk space](screenshots/B1b-environment.jpg)
+
 ## Preparing the certificate files
 
 I downloaded the certificate archive supplied for the lab. The `unzip` command was not installed on the VM, so I used Python's `zipfile` module to check the archive and extract the files.
@@ -26,6 +28,8 @@ I first tried to inspect `bill01.pfx` with OpenSSL. The command failed because t
 I repeated the command with the `-legacy` option. This allowed OpenSSL to read the file.
 
 The PFX information showed a SHA-1 MAC, Triple DES encryption for the key bag and RC2-40-CBC encryption for the certificate data.
+
+Evidence: [OpenSSL PFX inspection](screenshots/B2-pfx-inspection.jpg)
 
 ## Certificate information
 
@@ -42,6 +46,8 @@ I extracted the certificate from `bill01.pfx` and displayed its details.
 
 The subject and issuer are the same, which is consistent with a self-signed certificate.
 
+Evidence: [Certificate metadata and details – part 1](screenshots/B3-certificate-details-1.jpg) · [Certificate details – part 2](screenshots/B3-certificate-details-2.jpg)
+
 ## Checking the certificate signature
 
 I saved the extracted certificate as a PEM file and used OpenSSL to verify its signature against itself.
@@ -54,6 +60,8 @@ The command returned:
 
 This confirms that the certificate's self-signature was verified using its own public key. It does not mean that the certificate is trusted by a browser, operating system or certificate authority.
 
+Evidence: [Signature verification output](screenshots/B4-signature-verification.jpg)
+
 ## Python password-testing exercise
 
 I used a Python script to test the candidate passwords provided for the lab against the supplied `fredpfx.pfx` file. The script called OpenSSL and checked whether it could successfully extract the certificate.
@@ -61,6 +69,8 @@ I used a Python script to test the candidate passwords provided for the lab agai
 The test identified a working password. I have not included the password in this public repository because it is not necessary for documenting the method.
 
 The extracted certificate had the subject CN = fred and serial number FCA689.
+
+Evidence: [Python password-testing output (password redacted)](screenshots/B5-python-password-test.jpg)
 
 ## Displaying certificate details with pyOpenSSL
 
